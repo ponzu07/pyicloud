@@ -37,7 +37,7 @@ from .const_drive import (
     DRIVE_FILE_DOWNLOAD_WORKING,
 )
 from .const_findmyiphone import FMI_FAMILY_WORKING
-
+from .const_findmyfriends import FRIENDS_SERVICE_WORKING
 
 class ResponseMock(Response):
     """Mocked Response."""
@@ -152,8 +152,12 @@ class PyiCloudSessionMock(base.PyiCloudSession):
                 return ResponseMock({}, raw=open(".gitignore", "rb"))
 
         # Find My iPhone
-        if "fmi" in url and method == "POST":
+        if "fmipservice/client/web" in url and method == "POST":
             return ResponseMock(FMI_FAMILY_WORKING)
+
+        # Find My Friends
+        if "fmipservice/client/fmfWeb" in url and method == "POST":
+            return ResponseMock(FRIENDS_SERVICE_WORKING)
 
         return None
 
